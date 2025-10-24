@@ -1,6 +1,5 @@
-import tkinter as tk
+from calendar_view import CalendarOnly
 
-root = tk.Tk()
-root.title("My Calendar")
+if __name__== "__main__":
+    CalendarOnly().mainloop()
 
-root.mainloop()
