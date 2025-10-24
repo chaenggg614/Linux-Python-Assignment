@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 import calendar
 from datetime import date
+from todo import TodoPanel
+import storage
 
 class CalendarOnly(tk.Tk):
     def __init__(self):
@@ -28,8 +30,23 @@ class CalendarOnly(tk.Tk):
         ttk.Label(top, textvariable=self.title_var, font=("Segoe UI", 14, "bold")).pack()
 
         # 3) 요일 헤더 + 달력 그리드 영역
-        self.table = ttk.Frame(self)
-        self.table.pack(fill="both", expand=True, padx=10, pady=10)
+        main = ttk.Frame(self)
+        main.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # 왼쪽: 달력 테이블
+        left = ttk.Frame(main)
+        left.pack(side="left", fill="both", expand=True)
+        self.table = ttk.Frame(left)
+        self.table.pack(fill="both", expand=True)
+
+        # 오른쪽: To-Do 패널
+        self.todo = TodoPanel(main, on_changed=self.render_month)
+        self.todo.pack(side="left", fill="both", expand=False, padx=(10,0))
+
+        self.selected_var = tk.StringVar(value="select the date") 
+        self.selected_label = ttk.Label(self, textvariable=self.selected_var)
+        self.selected_label.pack(pady=(0, 6))
+
 
         # 초기 렌더링
         self.render_month()
@@ -72,9 +89,8 @@ class CalendarOnly(tk.Tk):
 
     
     def on_pick_day(self, day: int):
-        """날짜 버튼 클릭 시 호출: 선택 표시 업데이트"""
         self.selected_var.set(f"선택한 날짜: {self.year}-{self.month:02d}-{day:02d}")
-        
+        self.todo.set_date(self.year, self.month, day)
 
     
     def prev_month(self):
