@@ -54,7 +54,6 @@ class CalendarOnly(tk.Tk):
     
 
     def render_month(self):
-        """현재 self.year/self.month 기준으로 버튼 그리기"""
         # 타이틀
         self.title_var.set(f"{self.year}-{self.month:02d}")
 
@@ -84,12 +83,12 @@ class CalendarOnly(tk.Tk):
         # 칼럼/행 확장
         for i in range(7):
             self.table.grid_columnconfigure(i, weight=1)
-        for i in range(len(weeks) + 1):  # +1은 헤더행
+        for i in range(len(weeks) + 1):
             self.table.grid_rowconfigure(i, weight=1)
 
     
     def on_pick_day(self, day: int):
-        self.selected_var.set(f"선택한 날짜: {self.year}-{self.month:02d}-{day:02d}")
+        self.selected_var.set(f"selected date: {self.year}-{self.month:02d}-{day:02d}")
         self.todo.set_date(self.year, self.month, day)
 
     

@@ -5,11 +5,11 @@ import storage
 class TodoPanel(ttk.LabelFrame):
     def __init__(self, master, on_changed):
         super().__init__(master, text="To-Do", padding=8)
-        self.on_changed = on_changed  # 달력 체크마크 갱신용 콜백
+        self.on_changed = on_changed
         self.y = self.m = self.d = None
 
         # 상단: 선택된 날짜 라벨
-        self.sel_var = tk.StringVar(value="날짜를 선택하세요")
+        self.sel_var = tk.StringVar(value="select the date")
         ttk.Label(self, textvariable=self.sel_var).pack(anchor="w", pady=(0,6))
 
         # 리스트 + 스크롤
@@ -24,12 +24,12 @@ class TodoPanel(ttk.LabelFrame):
         self.entry = ttk.Entry(right, width=28); self.entry.pack(pady=(0,6))
         ttk.Button(right, text="+ Add", command=self.add).pack(fill="x", pady=2)
         ttk.Button(right, text="✓ Toggle", command=self.toggle).pack(fill="x", pady=2)
-        ttk.Button(right, text="🗑 Delete", command=self.delete).pack(fill="x", pady=2)
+        ttk.Button(right, text="x Delete", command=self.delete).pack(fill="x", pady=2)
 
     # 외부(달력)에서 날짜가 선택되면 호출
     def set_date(self, y: int, m: int, d: int):
         self.y, self.m, self.d = y, m, d
-        self.sel_var.set(f"선택한 날짜: {y}-{m:02d}-{d:02d}")
+        self.sel_var.set(f"{y}-{m:02d}-{d:02d}")
         self.refresh()
 
     def refresh(self):
@@ -41,7 +41,7 @@ class TodoPanel(ttk.LabelFrame):
 
     def add(self):
         if self.d is None:
-            messagebox.showwarning("No day", "달력에서 날짜를 먼저 선택하세요.")
+            messagebox.showwarning("No day")
             return
         text = self.entry.get().strip()
         if not text: return
