@@ -1,2 +1,7 @@
 # Linux-Python-Assignment
-# Linux-Python-Assignment
+
+
+날짜를 선택하면 해당 날짜의 할일 목록이 보이게 됩니다.
+할일을 적고 Add를 클릭하면 할일 목록에 추가됩니다.
+할일을 완료했다면 할일을 클릭한 뒤 Toggle을 누르면 됩니다.
+할일을 삭제하고 싶다면 할일을 클릭한 뒤 Delete를 누르면 됩니다.
